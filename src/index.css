@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-blue: #122135;
+  --color-second-blue: #26456e;
+  --color-button-one: #00b6f0;
+  --color-button-two: #8ae2ff;
+}
+
+.container {
+  margin: 0 auto;
+}
+
+.bg-primary {
+  @apply flex flex-col justify-center h-screen bg-linear-to-b from-second-blue to-primary-blue;
+}
+
+/* AUTH */
+.container-auth {
+  @apply flex flex-col md:flex-row md:justify-center bg-linear-to-b from-second-blue to-primary-blue shadow-2xl rounded-xl mx-5 px-3 py-6 md:py-3 outline outline-button-one inset-shadow-sm inset-shadow-second-blue md:h-160
+}
+
+/* LABELS */
+
+.primary-label {
+  @apply text-slate-400 text-[16px] capitalize;
+}
+
+/* INPUTS */
+.input-auth {
+  @apply bg-second-blue rounded-xl py-1 px-3 shadow mt-7
+}
+
+.primary-input {
+  @apply outline-none w-full rounded-md text-[16px] text-gray-100 placeholder:text-gray-400;
+}
