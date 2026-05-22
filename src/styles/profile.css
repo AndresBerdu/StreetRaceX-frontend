@@ -1,0 +1,342 @@
+.profile-page {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2rem;
+
+  width: 100%;
+}
+
+/* HEADER */
+
+.profile-header {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2rem;
+
+  padding: 2rem;
+
+  border-radius: 1.5rem;
+
+  background-color: #0b1020;
+
+  border: 1px solid #1f2937;
+}
+
+.profile-user {
+  display: flex;
+  flex-direction: column;
+
+  gap: 1.5rem;
+}
+
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  border: 4px solid #f97316;
+}
+
+.profile-rank {
+  color: #f97316;
+
+  font-weight: 700;
+
+  letter-spacing: 0.1em;
+}
+
+.profile-name {
+  margin-top: 0.8rem;
+
+  color: white;
+
+  font-size: 2.5rem;
+  font-weight: 800;
+
+  line-height: 1.1;
+}
+
+.profile-description {
+  margin-top: 1rem;
+
+  color: #9ca3af;
+
+  line-height: 1.6;
+}
+
+.profile-button {
+  width: fit-content;
+
+  padding: 1rem 2rem;
+
+  border: none;
+  border-radius: 1rem;
+
+  background-color: #f97316;
+
+  color: white;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+.profile-button:hover {
+  transform: translateY(-2px);
+
+  background-color: #fb923c;
+}
+
+/* STATS */
+
+.profile-stats {
+  display: grid;
+
+  grid-template-columns: 1fr;
+
+  gap: 1rem;
+}
+
+.profile-stat-card {
+  padding: 2rem;
+
+  border-radius: 1.5rem;
+
+  background-color: #0b1020;
+
+  border: 1px solid #1f2937;
+
+  transition: all 0.3s ease;
+}
+
+.profile-stat-card:hover {
+  transform: translateY(-4px);
+
+  border-color: rgba(249, 115, 22, 0.4);
+}
+
+.profile-stat-card h3 {
+  color: #9ca3af;
+
+  font-size: 1rem;
+}
+
+.profile-stat-card h2 {
+  margin-top: 1rem;
+
+  color: white;
+
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+/* GRID */
+
+.profile-grid {
+  display: grid;
+
+  grid-template-columns: 1fr;
+
+  gap: 2rem;
+}
+
+.profile-left,
+.profile-right {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2rem;
+}
+
+/* CARD */
+
+.profile-card {
+  padding: 2rem;
+
+  border-radius: 1.5rem;
+
+  background-color: #0b1020;
+
+  border: 1px solid #1f2937;
+}
+
+.profile-card h2 {
+  color: white;
+
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+/* VEHICLE */
+
+.vehicle-label {
+  color: #f97316;
+
+  font-weight: 700;
+
+  letter-spacing: 0.1em;
+}
+
+.profile-card p {
+  margin-top: 1rem;
+
+  color: #9ca3af;
+
+  line-height: 1.6;
+}
+
+.profile-vehicle-image {
+  width: 100%;
+
+  margin-top: 2rem;
+
+  border-radius: 1rem;
+
+  object-fit: cover;
+}
+
+.vehicle-info-grid {
+  display: grid;
+
+  grid-template-columns: 1fr;
+
+  gap: 1rem;
+
+  margin-top: 2rem;
+}
+
+.vehicle-info-grid div {
+  display: flex;
+  flex-direction: column;
+
+  padding: 1rem;
+
+  border-radius: 1rem;
+
+  background-color: #111827;
+}
+
+.vehicle-info-grid strong {
+  color: white;
+}
+
+.vehicle-info-grid span {
+  margin-top: 0.5rem;
+
+  color: #9ca3af;
+}
+
+/* ACHIEVEMENTS */
+
+.achievement-item {
+  display: flex;
+  align-items: center;
+
+  gap: 1rem;
+
+  padding: 1rem 0;
+
+  border-bottom: 1px solid #1f2937;
+}
+
+.achievement-item:last-child {
+  border-bottom: none;
+}
+
+.achievement-item span {
+  font-size: 2rem;
+}
+
+.achievement-item h4 {
+  color: white;
+
+  font-size: 1rem;
+}
+
+.achievement-item p {
+  margin-top: 0.2rem;
+
+  color: #9ca3af;
+}
+
+/* ACTIVITY */
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 1rem;
+
+  padding: 1rem 0;
+
+  border-bottom: 1px solid #1f2937;
+}
+
+.activity-item:last-child {
+  border-bottom: none;
+}
+
+.activity-item h4 {
+  color: white;
+
+  font-size: 1rem;
+}
+
+.activity-item p {
+  margin-top: 0.3rem;
+
+  color: #9ca3af;
+}
+
+.activity-item span {
+  color: #f97316;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+/* TABLET */
+
+@media (min-width: 768px) {
+  .profile-header {
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .profile-user {
+    flex-direction: row;
+
+    align-items: center;
+  }
+
+  .profile-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .vehicle-info-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* DESKTOP */
+
+@media (min-width: 1200px) {
+  .profile-stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .profile-grid {
+    grid-template-columns: 2fr 1fr;
+  }
+}

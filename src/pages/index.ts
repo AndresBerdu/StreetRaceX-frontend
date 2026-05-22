@@ -4,5 +4,5 @@ export { RegisterPage } from "./auth/RegisterPage";
 
 export { ChallengesPage } from "./ChallengesPage";
 export { DashboardPage } from "./dashboard/DashboardPage";
-export { ProfilePage } from "./ProfilePage";
+export { ProfilePage } from "./profile/ProfilePage";
 export { VehiclesPage } from "./VehiclesPage";

@@ -13,6 +13,7 @@ import {
   LoginPage,
   RegisterPage,
   DashboardPage,
+  ProfilePage,
 } from "../pages";
 
 import { ProtectedRoute } from "./ProtectedRoute";
@@ -44,6 +45,11 @@ export const MyRoutes = () => {
           <Route
             path="/dashboard"
             element={<DashboardPage />}
+          />
+
+          <Route
+            path="/profile"
+            element={<ProfilePage />}
           />
 
         </Route>
