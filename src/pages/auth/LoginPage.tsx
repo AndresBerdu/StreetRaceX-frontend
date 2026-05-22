@@ -1,66 +1,114 @@
 import { MdOutlineDoubleArrow } from "react-icons/md";
 import { Link } from "react-router-dom";
 
+import { useLoginForm } from "../../hooks/useLoginForm";
+
+import carroCarrera from "../../assets/vehicles/carrocarrera.jpg";
+
+import "../../styles/auth.css";
+
 export const LoginPage = () => {
+  const {
+    formData,
+    handleChange,
+    handleSubmit,
+  } = useLoginForm();
+
   return (
-    <div className="bg-primary">
-      <div className="container-auth">
-        <div className="bg-[url(/images/vehicle-login.jpg)] w-full bg-cover bg-center bg-no-repeat rounded-sm"></div>
-        <div className="md:flex md:flex-col md:justify-center md:items-center md:mx-5 md:w-150">
-          <h1 className="capitalize text-center text-slate-100 text-3xl font-light">
-            welcome back
+    <div className="auth-container">
+      <div className="auth-card">
+
+        {/* LEFT IMAGE */}
+        <div className="auth-image-container">
+          <img
+            src={carroCarrera}
+            alt="Race Car"
+            className="auth-image"
+          />
+
+          <div className="auth-overlay"></div>
+        </div>
+
+        {/* RIGHT CONTENT */}
+        <div className="auth-content">
+          <h1 className="auth-title">
+            Welcome To StreetRaceX
           </h1>
-          <h3 className="capitalize text-center text-gray-400 mt-1">
-            please enter your details to sign in,
-          </h3>
-          <form>
-            <div className="input-auth">
-              <label className="primary-label">email</label>
+
+          <p className="auth-subtitle">
+            Please enter your details to sign in
+          </p>
+
+          <form
+            className="auth-form"
+            onSubmit={(event) => {
+              event.preventDefault();
+
+              handleSubmit();
+            }}
+          >
+            {/* EMAIL */}
+            <div className="auth-group">
+              <label className="auth-label">
+                Email
+              </label>
+
               <input
                 type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
                 placeholder="example@gmail.com"
-                className="primary-input"
+                className="auth-input"
               />
             </div>
-            <div className="input-auth">
-              <label className="primary-label">password</label>
+
+            {/* PASSWORD */}
+            <div className="auth-group">
+              <label className="auth-label">
+                Password
+              </label>
+
               <input
                 type="password"
-                placeholder="your password"
-                className="primary-input"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Your password"
+                className="auth-input"
               />
             </div>
-            <div className="flex items-center justify-between mt-6">
-              <div>
-                <input
-                  type="checkbox"
-                  className="mr-2 outline-second-blue bg-transparent accent-primary-blue"
-                />
-                <span className="capitalize text-gray-100 text-[16px]">
-                  remember me
-                </span>
-              </div>
-              <Link
-                to="/perfil"
-                className="bg-linear-to-b from-button-one to-button-two rounded-xl p-3"
+
+            {/* ACTIONS */}
+            <div className="auth-actions">
+              <span className="auth-text">
+                Continue your racing journey
+              </span>
+
+              <button
+                type="submit"
+                className="auth-button"
               >
-                <span>
-                  <MdOutlineDoubleArrow
-                    size={20}
-                    className="text-primary-blue"
-                  />
-                </span>
-              </Link>
+                <MdOutlineDoubleArrow size={36} />
+              </button>
             </div>
-            <h2 className="text-center text-slate-500 mt-4">
-              don't you have account?,{" "}
+
+            {/* DIVIDER */}
+            <div className="auth-divider"></div>
+
+            {/* FOOTER */}
+            <div className="auth-footer">
+              <span className="auth-footer-text">
+                Don't have an account?
+              </span>
+
               <Link
                 to="/register"
-                className="capitalize text-button-one underline underline-offset-6"
+                className="auth-link"
               >
-                register here
+                Register here
               </Link>
-            </h2>
+            </div>
           </form>
         </div>
       </div>

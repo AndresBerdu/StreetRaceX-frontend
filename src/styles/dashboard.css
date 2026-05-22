@@ -1,0 +1,300 @@
+.dashboard-page {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2rem;
+}
+
+/* HEADER */
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dashboard-header h1 {
+  color: white;
+
+  font-size: 3rem;
+  font-weight: 800;
+}
+
+.dashboard-header p {
+  margin-top: 0.5rem;
+
+  color: #9ca3af;
+
+  font-size: 1.1rem;
+}
+
+.challenge-button {
+  padding: 1rem 2rem;
+
+  border: none;
+  border-radius: 1rem;
+
+  background-color: #f97316;
+
+  color: white;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+.challenge-button:hover {
+  transform: translateY(-2px);
+
+  background-color: #fb923c;
+}
+
+/* STATS */
+
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 1.5rem;
+}
+
+.stats-card {
+  padding: 2rem;
+
+  border-radius: 1.5rem;
+
+  background-color: #0b1020;
+
+  border: 1px solid #1f2937;
+}
+
+.stats-card h3 {
+  color: #9ca3af;
+
+  font-size: 1rem;
+}
+
+.stats-card h2 {
+  margin-top: 1rem;
+
+  color: white;
+
+  font-size: 2.5rem;
+}
+
+/* GRID */
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+
+  gap: 2rem;
+}
+
+.dashboard-left,
+.dashboard-right {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2rem;
+}
+
+/* VEHICLE */
+
+.active-vehicle-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 2rem;
+
+  border-radius: 1.5rem;
+
+  background-color: #0b1020;
+
+  border: 1px solid #1f2937;
+}
+
+.vehicle-info span {
+  color: #f97316;
+
+  font-weight: 700;
+
+  letter-spacing: 0.1em;
+}
+
+.vehicle-info h2 {
+  margin-top: 1rem;
+
+  color: white;
+
+  font-size: 2rem;
+}
+
+.vehicle-info p {
+  margin-top: 1rem;
+
+  color: #9ca3af;
+}
+
+.vehicle-stats {
+  display: flex;
+
+  gap: 2rem;
+
+  margin-top: 2rem;
+}
+
+.vehicle-stats div {
+  display: flex;
+  flex-direction: column;
+}
+
+.vehicle-stats strong {
+  color: white;
+}
+
+.vehicle-stats span {
+  margin-top: 0.5rem;
+
+  color: #9ca3af;
+}
+
+.active-vehicle-card img {
+  width: 320px;
+
+  border-radius: 1rem;
+}
+
+/* SECTION */
+
+.dashboard-section {
+  padding: 2rem;
+
+  border-radius: 1.5rem;
+
+  background-color: #0b1020;
+
+  border: 1px solid #1f2937;
+}
+
+.section-header {
+  margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+  color: white;
+
+  font-size: 1.5rem;
+}
+
+/* DRIVERS */
+
+.drivers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 1.5rem;
+}
+
+.driver-card {
+  padding: 1.5rem;
+
+  border-radius: 1rem;
+
+  background-color: #111827;
+
+  border: 1px solid #1f2937;
+}
+
+.driver-top {
+  display: flex;
+  align-items: center;
+
+  gap: 1rem;
+}
+
+.driver-top img {
+  width: 60px;
+  height: 60px;
+
+  border-radius: 50%;
+}
+
+.driver-top h3 {
+  color: white;
+}
+
+.driver-top p {
+  color: #9ca3af;
+
+  font-size: 0.9rem;
+}
+
+.driver-stats {
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 1.5rem;
+
+  color: #d1d5db;
+}
+
+.driver-button {
+  width: 100%;
+
+  margin-top: 1.5rem;
+
+  padding: 0.9rem;
+
+  border: none;
+  border-radius: 0.8rem;
+
+  background-color: #f97316;
+
+  color: white;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+/* CHALLENGES */
+
+.challenge-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 1rem 0;
+
+  border-bottom: 1px solid #1f2937;
+}
+
+.challenge-item h4 {
+  color: white;
+}
+
+.challenge-item p {
+  color: #9ca3af;
+}
+
+/* RANKING */
+
+.ranking-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 1rem 0;
+
+  border-bottom: 1px solid #1f2937;
+}
+
+.ranking-item span,
+.ranking-item h4,
+.ranking-item p {
+  color: white;
+}

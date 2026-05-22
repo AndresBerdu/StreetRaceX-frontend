@@ -1,17 +1,65 @@
-import { Route, Routes } from "react-router-dom";
-import { AuthLayout, MainLayout } from "../layouts";
-import { LoginPage, ProfilePage, RegisterPage } from "../pages";
+import {
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
+
+import {
+  AuthLayout,
+  MainLayout,
+} from "../layouts";
+
+import {
+  LoginPage,
+  RegisterPage,
+  DashboardPage,
+} from "../pages";
+
+import { ProtectedRoute } from "./ProtectedRoute";
 
 export const MyRoutes = () => {
   return (
     <Routes>
+
+      {/* AUTH ROUTES */}
       <Route element={<AuthLayout />}>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+
+        <Route
+          path="/login"
+          element={<LoginPage />}
+        />
+
+        <Route
+          path="/register"
+          element={<RegisterPage />}
+        />
+
       </Route>
-      <Route element={<MainLayout />}>
-        <Route path="/perfil" element={<ProfilePage />} />
+
+      {/* PRIVATE ROUTES */}
+      <Route element={<ProtectedRoute />}>
+
+        <Route element={<MainLayout />}>
+
+          <Route
+            path="/dashboard"
+            element={<DashboardPage />}
+          />
+
+        </Route>
+
       </Route>
+
+      {/* DEFAULT */}
+      <Route
+        path="*"
+        element={
+          <Navigate
+            to="/login"
+            replace
+          />
+        }
+      />
     </Routes>
   );
 };

@@ -1,14 +1,28 @@
 import { Outlet } from "react-router-dom";
-import { FooterComponent, NavbarComponent } from "../components";
+
+import { SidebarComponent } from "../components/ui/SidebarComponent";
+import { TopbarComponent } from "../components/ui/Topbar";
+
+import "../styles/main-layout.css";
 
 export const MainLayout = () => {
   return (
-    <div>
-      <NavbarComponent />
-      <div className="container">
-        <Outlet />
+    <div className="main-layout">
+
+      {/* SIDEBAR */}
+      <SidebarComponent />
+
+      {/* MAIN CONTENT */}
+      <div className="main-content">
+
+        {/* TOPBAR */}
+        <TopbarComponent />
+
+        {/* PAGE CONTENT */}
+        <main className="page-content">
+          <Outlet />
+        </main>
       </div>
-      <FooterComponent />
     </div>
   );
 };
