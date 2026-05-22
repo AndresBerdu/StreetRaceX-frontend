@@ -14,9 +14,12 @@ import {
   RegisterPage,
   DashboardPage,
   ProfilePage,
+  VehiclesPage,
+  ChallengesPage,
 } from "../pages";
 
 import { ProtectedRoute } from "./ProtectedRoute";
+import { RankingPage } from "../pages/RankingPages";
 
 export const MyRoutes = () => {
   return (
@@ -50,6 +53,21 @@ export const MyRoutes = () => {
           <Route
             path="/profile"
             element={<ProfilePage />}
+          />
+
+          <Route
+            path="/vehicles"
+            element={<VehiclesPage />}
+          />
+
+          <Route
+            path="/challenges"
+            element={<ChallengesPage />}
+          />
+
+          <Route
+            path="/ranking"
+            element={<RankingPage />}
           />
 
         </Route>
