@@ -3,21 +3,26 @@
   flex-direction: column;
 
   gap: 2rem;
+
+  width: 100%;
 }
 
 /* HEADER */
 
 .dashboard-header {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+
+  gap: 1.5rem;
 }
 
 .dashboard-header h1 {
   color: white;
 
-  font-size: 3rem;
+  font-size: 2.2rem;
   font-weight: 800;
+
+  line-height: 1.1;
 }
 
 .dashboard-header p {
@@ -25,10 +30,12 @@
 
   color: #9ca3af;
 
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .challenge-button {
+  width: fit-content;
+
   padding: 1rem 2rem;
 
   border: none;
@@ -55,19 +62,28 @@
 
 .dashboard-stats {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
 
-  gap: 1.5rem;
+  grid-template-columns: 1fr;
+
+  gap: 1rem;
 }
 
 .stats-card {
-  padding: 2rem;
+  padding: 1.8rem;
 
   border-radius: 1.5rem;
 
   background-color: #0b1020;
 
   border: 1px solid #1f2937;
+
+  transition: all 0.3s ease;
+}
+
+.stats-card:hover {
+  transform: translateY(-4px);
+
+  border-color: rgba(249, 115, 22, 0.4);
 }
 
 .stats-card h3 {
@@ -81,14 +97,16 @@
 
   color: white;
 
-  font-size: 2.5rem;
+  font-size: 2.3rem;
+  font-weight: 800;
 }
 
 /* GRID */
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+
+  grid-template-columns: 1fr;
 
   gap: 2rem;
 }
@@ -105,8 +123,9 @@
 
 .active-vehicle-card {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+
+  gap: 2rem;
 
   padding: 2rem;
 
@@ -115,6 +134,8 @@
   background-color: #0b1020;
 
   border: 1px solid #1f2937;
+
+  overflow: hidden;
 }
 
 .vehicle-info span {
@@ -131,18 +152,25 @@
   color: white;
 
   font-size: 2rem;
+  font-weight: 800;
+
+  line-height: 1.1;
 }
 
 .vehicle-info p {
   margin-top: 1rem;
 
   color: #9ca3af;
+
+  line-height: 1.6;
 }
 
 .vehicle-stats {
-  display: flex;
+  display: grid;
 
-  gap: 2rem;
+  grid-template-columns: 1fr;
+
+  gap: 1rem;
 
   margin-top: 2rem;
 }
@@ -150,6 +178,12 @@
 .vehicle-stats div {
   display: flex;
   flex-direction: column;
+
+  padding: 1rem;
+
+  border-radius: 1rem;
+
+  background-color: #111827;
 }
 
 .vehicle-stats strong {
@@ -160,12 +194,19 @@
   margin-top: 0.5rem;
 
   color: #9ca3af;
+
+  letter-spacing: normal;
 }
 
 .active-vehicle-card img {
-  width: 320px;
+  width: 100%;
+  max-width: 500px;
+
+  align-self: center;
 
   border-radius: 1rem;
+
+  object-fit: cover;
 }
 
 /* SECTION */
@@ -188,15 +229,17 @@
   color: white;
 
   font-size: 1.5rem;
+  font-weight: 700;
 }
 
 /* DRIVERS */
 
 .drivers-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
 
-  gap: 1.5rem;
+  grid-template-columns: 1fr;
+
+  gap: 1rem;
 }
 
 .driver-card {
@@ -207,6 +250,14 @@
   background-color: #111827;
 
   border: 1px solid #1f2937;
+
+  transition: all 0.3s ease;
+}
+
+.driver-card:hover {
+  transform: translateY(-4px);
+
+  border-color: rgba(249, 115, 22, 0.4);
 }
 
 .driver-top {
@@ -221,10 +272,14 @@
   height: 60px;
 
   border-radius: 50%;
+
+  object-fit: cover;
 }
 
 .driver-top h3 {
   color: white;
+
+  font-size: 1.1rem;
 }
 
 .driver-top p {
@@ -240,6 +295,8 @@
   margin-top: 1.5rem;
 
   color: #d1d5db;
+
+  font-size: 0.95rem;
 }
 
 .driver-button {
@@ -259,6 +316,12 @@
   font-weight: 700;
 
   cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+.driver-button:hover {
+  background-color: #fb923c;
 }
 
 /* CHALLENGES */
@@ -268,17 +331,37 @@
   align-items: center;
   justify-content: space-between;
 
+  gap: 1rem;
+
   padding: 1rem 0;
 
   border-bottom: 1px solid #1f2937;
 }
 
+.challenge-item:last-child {
+  border-bottom: none;
+}
+
 .challenge-item h4 {
   color: white;
+
+  font-size: 1rem;
 }
 
 .challenge-item p {
+  margin-top: 0.3rem;
+
   color: #9ca3af;
+
+  font-size: 0.9rem;
+}
+
+.challenge-item span {
+  color: #f97316;
+
+  font-weight: 700;
+
+  white-space: nowrap;
 }
 
 /* RANKING */
@@ -288,13 +371,81 @@
   align-items: center;
   justify-content: space-between;
 
+  gap: 1rem;
+
   padding: 1rem 0;
 
   border-bottom: 1px solid #1f2937;
+}
+
+.ranking-item:last-child {
+  border-bottom: none;
 }
 
 .ranking-item span,
 .ranking-item h4,
 .ranking-item p {
   color: white;
+}
+
+.ranking-item span {
+  font-weight: 700;
+}
+
+.ranking-item p {
+  color: #9ca3af;
+}
+
+/* TABLET */
+
+@media (min-width: 768px) {
+  .dashboard-header {
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .dashboard-header h1 {
+    font-size: 3rem;
+  }
+
+  .dashboard-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .drivers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .vehicle-stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* DESKTOP */
+
+@media (min-width: 1200px) {
+  .dashboard-stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  .drivers-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .active-vehicle-card {
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .active-vehicle-card img {
+    width: 320px;
+  }
 }
