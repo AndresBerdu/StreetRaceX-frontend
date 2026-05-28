@@ -1,178 +1,305 @@
-import { useState } from "react";
-
-import raceImage from "../assets/ranks/rank.webp"
-
+import { useState, useEffect } from "react";
+import { useAuthStore } from "../stores/useAuthStore";
+import { useFetch } from "../hooks/useFetch";
 import "../styles/challenge.css";
 
 type Challenge = {
-  id?: string;
+  slug: string;
+  type_race: string;
+  locality_rece: string;
+  date_race: string;
+  notes: string;
+  status: string;
+  challenger_slug: string;
+  challenged_slug: string;
+  winner_slug?: string | null; 
+};
 
-  title: string;
+type ApiResponse = {
+  ok: boolean;
+  data: Challenge[];
+};
 
-  description: string;
-
-  difficulty: string;
-
-  reward: number;
-
-  distance: string;
-
-  image: string;
-
-  active?: boolean;
+const statusColors: Record<string, string> = {
+  CREATED: "#f59e0b",
+  ACCEPTED: "#10b981",
+  REJECTED: "#ef4444",
+  CANCELED: "#6b7280",
+  STARTED: "#6366f1",
+  COMPLETED: "#3b82f6",
 };
 
 export const ChallengesPage = () => {
+  const user = useAuthStore((state) => state.user);
+  const [localChallenges, setLocalChallenges] = useState<Challenge[]>([]);
+  const [updating, setUpdating] = useState<string | null>(null);
+  const [showComplete, setShowComplete] = useState<Challenge | null>(null);
+  const [completing, setCompleting] = useState(false);
 
-  const [challenges] = useState<Challenge[]>([
-    {
-      id: "1",
-      title: "Downtown Sprint",
-      description:
-        "Race through downtown streets before sunrise.",
-
-      difficulty: "Medium",
-
-      reward: 5000,
-
-      distance: "5 KM",
-
-      image: raceImage,
-
-      active: true,
+  const { data, isLoading } = useFetch<ApiResponse>({
+    url: `http://localhost:8000/api/challenges/user/${user?.slug}`,
+    method: "GET",
+    onUnauthorized: () => {
+      window.location.href = "/login";
     },
+  });
 
-    {
-      id: "2",
-      title: "Night Tunnel Run",
-      description:
-        "High speed challenge inside the underground tunnels.",
+  useEffect(() => {
+    if (data?.data) setLocalChallenges(data.data);
+  }, [data]);
 
-      difficulty: "Hard",
+  const handleUpdateStatus = async (
+    challengeSlug: string,
+    status: "ACCEPTED" | "REJECTED",
+  ) => {
+    setUpdating(challengeSlug);
+    try {
+      const res = await fetch(
+        `http://localhost:8000/api/challenges/${challengeSlug}`,
+        {
+          method: "PATCH",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status }),
+        },
+      );
+      if (res.ok) {
+        setLocalChallenges((prev) =>
+          prev.map((c) => (c.slug === challengeSlug ? { ...c, status } : c)),
+        );
+      }
+    } finally {
+      setUpdating(null);
+    }
+  };
 
-      reward: 12000,
+  const handleComplete = async (winnerSlug: string) => {
+    if (!showComplete) return;
+    setCompleting(true);
+    try {
+      const res = await fetch(
+        `http://localhost:8000/api/challenges/${showComplete.slug}`,
+        {
+          method: "PATCH",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            status: "COMPLETED",
+            winner_slug: winnerSlug,
+          }),
+        },
+      );
+      if (res.ok) {
+        setLocalChallenges((prev) =>
+          prev.map((c) =>
+            c.slug === showComplete.slug
+              ? { ...c, status: "COMPLETED", winner_slug: winnerSlug }
+              : c,
+          ),
+        );
+        setShowComplete(null);
+      }
+    } finally {
+      setCompleting(false);
+    }
+  };
 
-      distance: "12 KM",
-
-      image: raceImage,
-
-      active: true,
-    },
-
-    {
-      id: "3",
-      title: "Harbor Drift",
-      description:
-        "Precision drifting challenge near the harbor zone.",
-
-      difficulty: "Easy",
-
-      reward: 3500,
-
-      distance: "3 KM",
-
-      image: raceImage,
-
-      active: true,
-    },
-  ]);
+  console.log(
+    "challenges:",
+    localChallenges.map((c) => ({
+      slug: c.slug,
+      status: c.status,
+      challenged_slug: c.challenged_slug,
+      my_slug: user?.slug,
+      match: c.challenged_slug === user?.slug,
+    })),
+  );
 
   return (
     <div className="challenges-page">
-
-      {/* HEADER */}
-
       <div className="challenges-header">
-
         <div>
-
-          <h1>
-            Street Challenges
-          </h1>
-
-          <p>
-            Compete and dominate the underground scene.
-          </p>
-
+          <h1>My Challenges</h1>
+          <p>Track your active and past street challenges.</p>
         </div>
-
-        <button className="challenge-create-button">
-          Create Challenge
-        </button>
-
       </div>
 
-      {/* GRID */}
+      {isLoading && (
+        <div style={{ color: "#94a3b8" }}>Loading challenges...</div>
+      )}
 
       <section className="challenges-grid">
+        {!isLoading && localChallenges.length === 0 && (
+          <p style={{ color: "#94a3b8" }}>No challenges yet.</p>
+        )}
 
-        {challenges.map((challenge) => (
-
-          <div
-            key={challenge.id}
-            className="challenge-card"
-          >
-
-            <img
-              src={challenge.image}
-              alt={challenge.title}
-              className="challenge-card-image"
-            />
-
+        {localChallenges.map((challenge) => (
+          <div key={challenge.slug} className="challenge-card">
             <div className="challenge-card-content">
-
-              <span className="challenge-difficulty">
-                {challenge.difficulty}
-              </span>
-
-              <h2>
-                {challenge.title}
-              </h2>
-
-              <p className="challenge-description">
-                {challenge.description}
-              </p>
-
-              <div className="challenge-info">
-
-                <div>
-
-                  <strong>
-                    Reward
-                  </strong>
-
-                  <span>
-                    ${challenge.reward}
-                  </span>
-
-                </div>
-
-                <div>
-
-                  <strong>
-                    Distance
-                  </strong>
-
-                  <span>
-                    {challenge.distance}
-                  </span>
-
-                </div>
-
+              <div
+                style={{
+                  display: "flex",
+                  gap: "0.5rem",
+                  marginBottom: "0.8rem",
+                }}
+              >
+                <span className="challenge-difficulty">
+                  {challenge.type_race}
+                </span>
+                <span
+                  className="challenge-status-badge"
+                  style={{
+                    background: `${statusColors[challenge.status]}22`,
+                    color: statusColors[challenge.status],
+                  }}
+                >
+                  {challenge.status}
+                </span>
               </div>
 
-              <button className="challenge-button">
-                View Challenge
-              </button>
+              <h2
+                style={{
+                  fontSize: "1rem",
+                  marginBottom: "1rem",
+                  color: "#94a3b8",
+                }}
+              >
+                {challenge.slug}
+              </h2>
 
+              <div className="challenge-info">
+                <div>
+                  <strong>📍 Locality</strong>
+                  <span>{challenge.locality_rece}</span>
+                </div>
+                <div>
+                  <strong>📅 Date</strong>
+                  <span>
+                    {new Date(challenge.date_race).toLocaleDateString()}
+                  </span>
+                </div>
+              </div>
+
+              {challenge.notes && (
+                <p className="challenge-description">{challenge.notes}</p>
+              )}
+
+              <div
+                style={{
+                  marginTop: "0.8rem",
+                  fontSize: "0.8rem",
+                  color: "#64748b",
+                }}
+              >
+                {challenge.challenger_slug === user?.slug
+                  ? `⚔️ You challenged ${challenge.challenged_slug}`
+                  : `🎯 Challenged by ${challenge.challenger_slug}`}
+              </div>
+
+              {/* Botones accept/reject — solo para el retado y solo si está en created */}
+              {challenge.status.toLowerCase() === "created" &&
+                challenge.challenged_slug === user?.slug && (
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "0.5rem",
+                      marginTop: "1rem",
+                    }}
+                  >
+                    <button
+                      className="av-btn-confirm"
+                      style={{ flex: 1 }}
+                      disabled={updating === challenge.slug}
+                      onClick={() =>
+                        handleUpdateStatus(challenge.slug, "ACCEPTED")
+                      }
+                    >
+                      {updating === challenge.slug ? "..." : "✅ Accept"}
+                    </button>
+                    <button
+                      className="av-btn-cancel"
+                      style={{
+                        flex: 1,
+                        color: "#ef4444",
+                        borderColor: "#ef4444",
+                      }}
+                      disabled={updating === challenge.slug}
+                      onClick={() =>
+                        handleUpdateStatus(challenge.slug, "REJECTED")
+                      }
+                    >
+                      {updating === challenge.slug ? "..." : "❌ Reject"}
+                    </button>
+                  </div>
+                )}
+
+              {challenge.status === "STARTED" &&
+                (challenge.challenger_slug === user?.slug ||
+                  challenge.challenged_slug === user?.slug) && (
+                  <button
+                    className="av-btn-confirm"
+                    style={{ width: "100%", marginTop: "1rem" }}
+                    onClick={() => setShowComplete(challenge)}
+                  >
+                    🏁 Register Result
+                  </button>
+                )}
             </div>
-
           </div>
-
         ))}
 
-      </section>
+        {showComplete && (
+          <div className="av-overlay">
+            <div className="av-modal">
+              <h3>Who won? 🏆</h3>
+              <p style={{ color: "#94a3b8", fontSize: "0.9rem" }}>
+                Select the winner of challenge{" "}
+                <strong>{showComplete.slug}</strong>
+              </p>
 
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.75rem",
+                  marginTop: "0.5rem",
+                }}
+              >
+                <button
+                  className="av-btn-confirm"
+                  disabled={completing}
+                  onClick={() => handleComplete(showComplete.challenger_slug)}
+                >
+                  🥇{" "}
+                  {showComplete.challenger_slug === user?.slug
+                    ? "I won"
+                    : showComplete.challenger_slug}
+                </button>
+                <button
+                  className="av-btn-confirm"
+                  style={{ background: "#6366f1" }}
+                  disabled={completing}
+                  onClick={() => handleComplete(showComplete.challenged_slug)}
+                >
+                  🥇{" "}
+                  {showComplete.challenged_slug === user?.slug
+                    ? "I won"
+                    : showComplete.challenged_slug}
+                </button>
+              </div>
+
+              <button
+                className="av-btn-cancel"
+                style={{ marginTop: "0.5rem", width: "100%" }}
+                onClick={() => setShowComplete(null)}
+                disabled={completing}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
+      </section>
     </div>
   );
 };

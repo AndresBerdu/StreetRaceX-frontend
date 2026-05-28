@@ -224,3 +224,98 @@
     width: 100%;
   }
 }
+
+.challenge-status-badge {
+  display: inline-block;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.av-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.av-modal {
+  background: #111827;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.av-modal h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.av-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.av-field label {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.av-field input,
+.av-field select,
+.av-field textarea {
+  background: #1e293b;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  color: white;
+  font-size: 0.95rem;
+  outline: none;
+  resize: none;
+}
+
+.av-field textarea { height: 80px; }
+
+.av-field input:focus,
+.av-field select:focus,
+.av-field textarea:focus {
+  border-color: #f59e0b;
+}
+
+.av-modal-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.av-btn-cancel {
+  padding: 0.75rem 1.2rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: transparent;
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+.av-btn-confirm {
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  border: none;
+  background: #f59e0b;
+  color: #0f172a;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.av-btn-confirm:disabled { opacity: 0.5; cursor: not-allowed; }

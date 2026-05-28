@@ -234,94 +234,186 @@
 
 /* DRIVERS */
 
-.drivers-grid {
-  display: grid;
+/* DRIVERS LIST (reemplaza drivers-grid) */
 
-  grid-template-columns: 1fr;
-
-  gap: 1rem;
+.dashboard-grid--single {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-.driver-card {
-  padding: 1.5rem;
-
-  border-radius: 1rem;
-
-  background-color: #111827;
-
-  border: 1px solid #1f2937;
-
-  transition: all 0.3s ease;
-}
-
-.driver-card:hover {
-  transform: translateY(-4px);
-
-  border-color: rgba(249, 115, 22, 0.4);
-}
-
-.driver-top {
+.drivers-section-header {
   display: flex;
   align-items: center;
-
+  justify-content: space-between;
+  flex-wrap: wrap;
   gap: 1rem;
 }
 
-.driver-top img {
-  width: 60px;
-  height: 60px;
-
-  border-radius: 50%;
-
-  object-fit: cover;
-}
-
-.driver-top h3 {
-  color: white;
-
-  font-size: 1.1rem;
-}
-
-.driver-top p {
-  color: #9ca3af;
-
-  font-size: 0.9rem;
-}
-
-.driver-stats {
+.drivers-controls {
   display: flex;
-  justify-content: space-between;
-
-  margin-top: 1.5rem;
-
-  color: #d1d5db;
-
-  font-size: 0.95rem;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.driver-button {
-  width: 100%;
+.drivers-controls label {
+  color: #9ca3af;
+  font-size: 0.85rem;
+}
 
-  margin-top: 1.5rem;
-
-  padding: 0.9rem;
-
-  border: none;
-  border-radius: 0.8rem;
-
-  background-color: #f97316;
-
+.drivers-controls select {
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.5rem;
+  border: 1px solid #1f2937;
+  background-color: #111827;
   color: white;
-
-  font-weight: 700;
-
+  font-size: 0.85rem;
   cursor: pointer;
-
-  transition: all 0.3s ease;
 }
 
-.driver-button:hover {
+.drivers-loading {
+  padding: 2rem;
+  text-align: center;
+  color: #9ca3af;
+}
+
+.drivers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.driver-list-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #1f2937;
+  transition: background 0.2s;
+}
+
+.driver-list-item:last-child {
+  border-bottom: none;
+}
+
+.driver-list-item img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.driver-list-info {
+  flex: 1;
+}
+
+.driver-list-info h4 {
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.driver-list-info p {
+  color: #9ca3af;
+  font-size: 0.82rem;
+  margin: 0.2rem 0 0;
+}
+
+.driver-list-info strong {
+  color: #f97316;
+}
+
+.driver-list-stats {
+  display: flex;
+  gap: 1rem;
+}
+
+.driver-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.stat-label {
+  color: #6b7280;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stat-value {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.stat-value.win  { color: #10b981; }
+.stat-value.loss { color: #ef4444; }
+
+.driver-challenge-btn {
+  padding: 0.5rem 1.1rem;
+  border: none;
+  border-radius: 0.6rem;
+  background-color: #f97316;
+  color: white;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.driver-challenge-btn:hover {
   background-color: #fb923c;
+}
+
+/* PAGINATION */
+
+.drivers-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #1f2937;
+}
+
+.drivers-pagination button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #1f2937;
+  border-radius: 0.6rem;
+  background: #111827;
+  color: white;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.drivers-pagination button:hover:not(:disabled) {
+  border-color: #f97316;
+  color: #f97316;
+}
+
+.drivers-pagination button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.pagination-info {
+  color: #9ca3af;
+  font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.pagination-info small {
+  font-size: 0.75rem;
+  color: #6b7280;
 }
 
 /* CHALLENGES */

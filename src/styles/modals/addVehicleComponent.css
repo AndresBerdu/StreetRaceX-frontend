@@ -1,0 +1,306 @@
+.av-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 8, 22, 0.85);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: av-fade-in 0.2s ease;
+}
+
+@keyframes av-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.av-panel {
+  width: 100%;
+  max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #0b1020;
+  border: 1px solid #1f2937;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  animation: av-slide-up 0.25s ease;
+}
+
+@keyframes av-slide-up {
+  from { transform: translateY(24px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* HEADER */
+.av-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.av-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: #f97316;
+  margin-bottom: 0.3rem;
+}
+
+.av-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: white;
+  margin: 0;
+}
+
+.av-close {
+  background: none;
+  border: none;
+  color: #6b7280;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.3rem;
+  transition: color 0.2s;
+}
+.av-close:hover { color: white; }
+
+/* PHOTO */
+.av-photo-drop {
+  width: 100%;
+  height: 160px;
+  border-radius: 1rem;
+  border: 2px dashed #1f2937;
+  background-color: #050816;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  transition: border-color 0.2s;
+  overflow: hidden;
+}
+.av-photo-drop:hover { border-color: #f97316; }
+
+.av-photo-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: #4b5563;
+  font-size: 0.9rem;
+}
+.av-photo-icon { font-size: 2rem; }
+
+/* FORM */
+.av-form { display: flex; flex-direction: column; gap: 1.2rem; }
+
+.av-field { display: flex; flex-direction: column; gap: 0.4rem; }
+
+.av-field-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #9ca3af;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.av-optional { color: #4b5563; font-weight: 400; text-transform: none; }
+
+.av-input {
+  background: #050816;
+  border: 1px solid #1f2937;
+  border-radius: 0.75rem;
+  color: white;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+.av-input::placeholder { color: #374151; }
+.av-input:focus { border-color: #f97316; }
+
+.av-plate {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+
+.av-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* TYPE GRID */
+.av-type-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.av-type-btn {
+  background: #050816;
+  border: 1px solid #1f2937;
+  border-radius: 0.75rem;
+  color: #6b7280;
+  padding: 0.6rem 0.5rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.av-type-btn:hover { border-color: #f97316; color: white; }
+.av-type-btn.active {
+  border-color: #f97316;
+  background: rgba(249, 115, 22, 0.12);
+  color: #f97316;
+  font-weight: 700;
+}
+
+/* COLOR */
+.av-color-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.av-color-picker {
+  width: 44px;
+  height: 44px;
+  border: 1px solid #1f2937;
+  border-radius: 0.5rem;
+  background: none;
+  cursor: pointer;
+  padding: 2px;
+}
+
+.av-color-value {
+  color: #9ca3af;
+  font-size: 0.9rem;
+  font-family: monospace;
+}
+
+/* ERROR */
+.av-error {
+  color: #ef4444;
+  font-size: 0.85rem;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.9rem;
+  margin: 0;
+}
+
+/* ACTIONS */
+.av-actions {
+  display: flex;
+  gap: 0.8rem;
+  padding-top: 0.5rem;
+}
+
+.av-btn-cancel {
+  flex: 1;
+  background: none;
+  border: 1px solid #1f2937;
+  border-radius: 0.75rem;
+  color: #6b7280;
+  padding: 0.85rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.av-btn-cancel:hover { border-color: #374151; color: white; }
+
+.av-btn-submit {
+  flex: 2;
+  background: #f97316;
+  border: none;
+  border-radius: 0.75rem;
+  color: white;
+  padding: 0.85rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.av-btn-submit:hover:not(:disabled) { background: #ea6a08; }
+.av-btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* DELETE BUTTON on card */
+.vehicle-delete-btn {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  z-index: 2;
+}
+.vehicle-delete-btn:hover {
+  background: rgba(239, 68, 68, 0.35);
+}
+
+/* Make card relative for absolute positioning */
+.vehicle-card { position: relative; }
+
+/* DELETE CONFIRM MODAL */
+.delete-modal {
+  background: #0b1020;
+  border: 1px solid #1f2937;
+  border-radius: 1.5rem;
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  animation: av-slide-up 0.25s ease;
+}
+
+.delete-icon { font-size: 2.5rem; margin: 0 0 1rem; }
+
+.delete-title {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+}
+
+.delete-subtitle {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin: 0 0 2rem;
+}
+
+.delete-actions {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.delete-confirm-btn {
+  flex: 2;
+  background: #ef4444;
+  border: none;
+  border-radius: 0.75rem;
+  color: white;
+  padding: 0.85rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.delete-confirm-btn:hover:not(:disabled) { background: #dc2626; }
+.delete-confirm-btn:disabled { opacity: 0.5; cursor: not-allowed; }

@@ -2,11 +2,10 @@ import {
   Navigate,
   Outlet,
 } from "react-router-dom";
-
-import { useAuth } from "../context/AuthContext";
+import { useAuthStore } from "../stores/useAuthStore";
 
 export const ProtectedRoute = () => {
-  const { user } = useAuth();
+  const user = useAuthStore((state) => state.user);
 
   if (!user) {
     return (
