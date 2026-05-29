@@ -127,7 +127,7 @@ export const VehiclesPage = () => {
                     <span>{vehicle.year}</span>
                   </div>
                   <div>
-                    <strong>Plate</strong>
+                    <strong>Plate: </strong>
                     <span>{vehicle.plate ?? "—"}</span>
                   </div>
                 </div>

@@ -9,11 +9,15 @@ import { useForm } from "../../hooks/useForm";
 import type { LoginFormData } from "../../types/auth.types";
 import { useAuthStore } from "../../stores/useAuthStore";
 import type { User } from "../../types/user.type";
+import { useState } from "react";
 
 export const LoginPage = () => {
   const login = useAuthStore((state) => state.login);
   const navigate = useNavigate();
 
+  const [error, setError] = useState<string>("");
+
+  /* Custom hook for login  */
   const { execute, isLoading } = useFetch<{ ok: boolean; data: User }>({
     url: "http://localhost:8000/api/auth/sign-in-session",
     method: "POST",
@@ -25,6 +29,7 @@ export const LoginPage = () => {
       }
     },
     onError: (error) => {
+      setError(error);
       console.error("Login error:", error);
     },
   });
@@ -88,6 +93,9 @@ export const LoginPage = () => {
                 className="auth-input"
               />
             </div>
+
+            {/* ERROR */}
+            {error && <p className="auth-result-error">{error}</p>}
 
             {/* ACTIONS */}
             <div className="auth-actions">

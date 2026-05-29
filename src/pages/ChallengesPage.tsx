@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuthStore } from "../stores/useAuthStore";
 import { useFetch } from "../hooks/useFetch";
 import "../styles/challenge.css";
+import { useUsername } from "../hooks/useUsername";
 
 type Challenge = {
   slug: string;
@@ -12,7 +13,7 @@ type Challenge = {
   status: string;
   challenger_slug: string;
   challenged_slug: string;
-  winner_slug?: string | null; 
+  winner_slug?: string | null;
 };
 
 type ApiResponse = {
@@ -31,12 +32,13 @@ const statusColors: Record<string, string> = {
 
 export const ChallengesPage = () => {
   const user = useAuthStore((state) => state.user);
-  const [localChallenges, setLocalChallenges] = useState<Challenge[]>([]);
   const [updating, setUpdating] = useState<string | null>(null);
-  const [showComplete, setShowComplete] = useState<Challenge | null>(null);
-  const [completing, setCompleting] = useState(false);
 
-  const { data, isLoading } = useFetch<ApiResponse>({
+  const {
+    data,
+    isLoading,
+    execute: reloadChallenges,
+  } = useFetch<ApiResponse>({
     url: `http://localhost:8000/api/challenges/user/${user?.slug}`,
     method: "GET",
     onUnauthorized: () => {
@@ -44,76 +46,48 @@ export const ChallengesPage = () => {
     },
   });
 
+  const localChallenges = data?.data ?? [];
+
   useEffect(() => {
-    if (data?.data) setLocalChallenges(data.data);
-  }, [data]);
+    if (!user?.slug) return;
+    reloadChallenges(undefined); // carga inicial
+    const interval = setInterval(() => reloadChallenges(undefined), 15000);
+    return () => clearInterval(interval);
+  }, [user?.slug]);
+
+  const { execute: updateChallenge } = useFetch({
+    url: "", 
+    method: "PATCH",
+    onSuccess: () => reloadChallenges(undefined),
+  });
 
   const handleUpdateStatus = async (
     challengeSlug: string,
     status: "ACCEPTED" | "REJECTED",
   ) => {
     setUpdating(challengeSlug);
-    try {
-      const res = await fetch(
-        `http://localhost:8000/api/challenges/${challengeSlug}`,
-        {
-          method: "PATCH",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ status }),
-        },
-      );
-      if (res.ok) {
-        setLocalChallenges((prev) =>
-          prev.map((c) => (c.slug === challengeSlug ? { ...c, status } : c)),
-        );
-      }
-    } finally {
-      setUpdating(null);
-    }
+    await updateChallenge(
+      { status },
+      `http://localhost:8000/api/challenges/${challengeSlug}`,
+    );
+    setUpdating(null);
   };
 
-  const handleComplete = async (winnerSlug: string) => {
-    if (!showComplete) return;
-    setCompleting(true);
-    try {
-      const res = await fetch(
-        `http://localhost:8000/api/challenges/${showComplete.slug}`,
-        {
-          method: "PATCH",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            status: "COMPLETED",
-            winner_slug: winnerSlug,
-          }),
-        },
-      );
-      if (res.ok) {
-        setLocalChallenges((prev) =>
-          prev.map((c) =>
-            c.slug === showComplete.slug
-              ? { ...c, status: "COMPLETED", winner_slug: winnerSlug }
-              : c,
-          ),
-        );
-        setShowComplete(null);
-      }
-    } finally {
-      setCompleting(false);
-    }
-  };
+  const formatDate = (dateStr: string) =>
+    new Date(dateStr).toLocaleString([], {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
 
-  console.log(
-    "challenges:",
-    localChallenges.map((c) => ({
-      slug: c.slug,
-      status: c.status,
-      challenged_slug: c.challenged_slug,
-      my_slug: user?.slug,
-      match: c.challenged_slug === user?.slug,
-    })),
-  );
+  const allSlugs = localChallenges.flatMap((c) => [
+    c.challenger_slug,
+    c.challenged_slug,
+    ...(c.winner_slug ? [c.winner_slug] : []),
+  ]);
+  const usernames = useUsername(allSlugs);
 
   return (
     <div className="challenges-page">
@@ -174,9 +148,7 @@ export const ChallengesPage = () => {
                 </div>
                 <div>
                   <strong>📅 Date</strong>
-                  <span>
-                    {new Date(challenge.date_race).toLocaleDateString()}
-                  </span>
+                  <span>{formatDate(challenge.date_race)}</span>
                 </div>
               </div>
 
@@ -192,12 +164,12 @@ export const ChallengesPage = () => {
                 }}
               >
                 {challenge.challenger_slug === user?.slug
-                  ? `⚔️ You challenged ${challenge.challenged_slug}`
-                  : `🎯 Challenged by ${challenge.challenger_slug}`}
+                  ? `⚔️ You challenged ${usernames[challenge.challenged_slug] ?? challenge.challenged_slug}`
+                  : `🎯 Challenged by ${usernames[challenge.challenger_slug] ?? challenge.challenger_slug}`}
               </div>
 
-              {/* Botones accept/reject — solo para el retado y solo si está en created */}
-              {challenge.status.toLowerCase() === "created" &&
+              {/* CREATED — el retado puede aceptar o rechazar */}
+              {challenge.status === "CREATED" &&
                 challenge.challenged_slug === user?.slug && (
                   <div
                     style={{
@@ -233,72 +205,28 @@ export const ChallengesPage = () => {
                   </div>
                 )}
 
-              {challenge.status === "STARTED" &&
-                (challenge.challenger_slug === user?.slug ||
-                  challenge.challenged_slug === user?.slug) && (
-                  <button
-                    className="av-btn-confirm"
-                    style={{ width: "100%", marginTop: "1rem" }}
-                    onClick={() => setShowComplete(challenge)}
-                  >
-                    🏁 Register Result
-                  </button>
-                )}
+              {/* COMPLETED — mostrar ganador */}
+              {challenge.status === "COMPLETED" && challenge.winner_slug && (
+                <p
+                  style={{
+                    marginTop: "1rem",
+                    fontSize: "0.85rem",
+                    color: "#10b981",
+                    textAlign: "center",
+                  }}
+                >
+                  🏆 Winner:{" "}
+                  <strong>
+                    {challenge.winner_slug === user?.slug
+                      ? "You"
+                      : (usernames[challenge.winner_slug] ??
+                        challenge.winner_slug)}
+                  </strong>
+                </p>
+              )}
             </div>
           </div>
         ))}
-
-        {showComplete && (
-          <div className="av-overlay">
-            <div className="av-modal">
-              <h3>Who won? 🏆</h3>
-              <p style={{ color: "#94a3b8", fontSize: "0.9rem" }}>
-                Select the winner of challenge{" "}
-                <strong>{showComplete.slug}</strong>
-              </p>
-
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "0.75rem",
-                  marginTop: "0.5rem",
-                }}
-              >
-                <button
-                  className="av-btn-confirm"
-                  disabled={completing}
-                  onClick={() => handleComplete(showComplete.challenger_slug)}
-                >
-                  🥇{" "}
-                  {showComplete.challenger_slug === user?.slug
-                    ? "I won"
-                    : showComplete.challenger_slug}
-                </button>
-                <button
-                  className="av-btn-confirm"
-                  style={{ background: "#6366f1" }}
-                  disabled={completing}
-                  onClick={() => handleComplete(showComplete.challenged_slug)}
-                >
-                  🥇{" "}
-                  {showComplete.challenged_slug === user?.slug
-                    ? "I won"
-                    : showComplete.challenged_slug}
-                </button>
-              </div>
-
-              <button
-                className="av-btn-cancel"
-                style={{ marginTop: "0.5rem", width: "100%" }}
-                onClick={() => setShowComplete(null)}
-                disabled={completing}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        )}
       </section>
     </div>
   );

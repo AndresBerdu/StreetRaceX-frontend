@@ -1,0 +1,115 @@
+/* Overlay */
+.edit-profile-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Modal */
+.edit-profile-modal {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 1rem;
+  padding: 2rem;
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Header */
+.edit-profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.edit-profile-header h2 {
+  color: #f1f5f9;
+  margin: 0;
+}
+
+.edit-profile-close {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+/* Avatar */
+.edit-profile-avatar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.edit-profile-avatar img {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #334155;
+}
+
+.edit-profile-avatar label {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #3b82f6;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.75rem;
+}
+
+.edit-profile-avatar span {
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+/* Inputs */
+.profile-edit-input {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  color: #f1f5f9;
+}
+
+.profile-edit-input::placeholder {
+  color: #64748b;
+}
+
+/* Labels */
+.edit-profile-label {
+  color: #94a3b8;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Actions */
+.profile-button {
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: #f1f5f9;
+  background: #3b82f6;
+}
+
+.profile-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

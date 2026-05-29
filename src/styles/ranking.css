@@ -1,146 +1,173 @@
-/* PAGE */
-
-.ranking-page {
-  width: 100%;
-
-  min-height: 100vh;
-
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 2rem;
-
-  background: #0f172a;
-
-  color: white;
+  font-family: system-ui, sans-serif;
+  color: #f1f5f9;
 }
 
-/* HEADER */
-
-.ranking-header {
-  margin-bottom: 2rem;
+/* Header */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
 }
 
-.ranking-header h1 {
-  font-size: 2.5rem;
-
+.title {
+  font-size: 1.8rem;
   font-weight: 700;
-
-  margin-bottom: 0.5rem;
+  color: #f97316;
+  margin: 0;
 }
 
-.ranking-header p {
-  color: #94a3b8;
+.subtitle {
+  font-size: 0.95rem;
+  color: #9ca3af;
 }
 
-/* TABLE */
-
-.ranking-table {
+/* Tabla */
+.table {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.75rem;
   overflow: hidden;
-
-  border: 1px solid rgba(255, 255, 255, 0.08);
-
-  border-radius: 20px;
-
-  background: #111827;
+  border: 1px solid #f97316;
+  background-color: #0f172a; 
 }
 
-/* HEADER */
-
-.ranking-table-header {
+/* Fila base */
+.row {
   display: grid;
-
-  grid-template-columns:
-    80px
-    2fr
-    120px
-    160px
-    160px
-    1fr;
-
-  padding: 1rem 1.5rem;
-
-  background: #1e293b;
-
-  font-weight: 700;
-
-  color: #cbd5e1;
-}
-
-/* ROW */
-
-.ranking-row {
-  display: grid;
-
-  grid-template-columns:
-    80px
-    2fr
-    120px
-    160px
-    160px
-    1fr;
-
+  grid-template-columns: 60px 1fr 80px 100px 100px 100px;
   align-items: center;
-
-  padding: 1rem 1.5rem;
-
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-
-  transition: 0.2s ease;
+  padding: 1rem;
+  border-bottom: 1px solid #f97316;
+  transition: background 0.2s;
 }
 
-.ranking-row:hover {
-  background: rgba(255, 255, 255, 0.03);
+.row:last-child {
+  border-bottom: none;
 }
 
-/* POSITION */
+.row:hover:not(.tableHeader):not(.skeletonRow) {
+  background: #fb923c; 
+}
 
-.ranking-position {
+/* Header de tabla */
+.tableHeader {
+  background: #f97316;
+  color: #fff;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+/* Posiciones */
+.colPos {
   font-weight: 700;
+  font-size: 1rem;
+  color: #f1f5f9;
+}
 
+.topPos {
+  font-size: 1.3rem;
+}
+
+/* Corredor */
+.colRacer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid #f97316;
+}
+
+.username {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #f1f5f9;
+}
+
+/* Rank badge */
+.rankBadge {
+  display: inline-block;
+  min-width: 36px;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-align: center;
+  color: #fff;
+  background: #f97316;
+}
+
+/* Stats */
+.colStat {
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.wins {
+  color: #22c55e;
+}
+
+.losses {
+  color: #ef4444;
+}
+
+.streak {
   color: #facc15;
 }
 
-/* USER */
+/* Empty state */
+.empty {
+  padding: 2rem;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 1rem;
+}
 
-.ranking-user {
+/* Paginación */
+.pagination {
   display: flex;
-
+  justify-content: center;
   align-items: center;
-
   gap: 1rem;
+  margin-top: 1.5rem;
 }
 
-.ranking-avatar {
-  width: 50px;
-
-  height: 50px;
-
-  border-radius: 50%;
-
-  object-fit: cover;
-
-  border: 2px solid #334155;
+.pageBtn {
+  background: #f97316;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background 0.2s;
 }
 
-/* RESPONSIVE */
-
-@media (max-width: 900px) {
-
-  .ranking-table {
-    overflow-x: auto;
-  }
-
-  .ranking-table-header,
-  .ranking-row {
-    min-width: 850px;
-  }
+.pageBtn:hover:not(:disabled) {
+  background: #fb923c;
 }
 
-@media (max-width: 768px) {
+.pageBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
-  .ranking-page {
-    padding: 1rem;
-  }
-
-  .ranking-header h1 {
-    font-size: 2rem;
-  }
+.pageInfo {
+  color: #9ca3af;
+  font-size: 0.9rem;
 }

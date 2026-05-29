@@ -1,7 +1,6 @@
 export const DashboardHeader = () => {
   return (
     <div className="dashboard-header">
-
       <div>
         <h1>
           Driver Dashboard
@@ -11,10 +10,6 @@ export const DashboardHeader = () => {
           Track your progress and dominate the streets.
         </p>
       </div>
-
-      <button className="challenge-button">
-        Find Challenge
-      </button>
     </div>
   );
 };

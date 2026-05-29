@@ -111,21 +111,14 @@
 
 .vehicle-type {
   display: inline-block;
-
   margin-bottom: 0.8rem;
-
+  margin-right: 0.5rem;
   padding: 0.35rem 0.8rem;
-
   border-radius: 999px;
-
   background: rgba(37, 99, 235, 0.2);
-
   color: #60a5fa;
-
   font-size: 0.85rem;
-
   font-weight: 600;
-
   text-transform: uppercase;
 }
 
@@ -133,9 +126,7 @@
 
 .vehicle-card-content h2 {
   margin-bottom: 1rem;
-
   font-size: 1.4rem;
-
   font-weight: 700;
 }
 
@@ -143,19 +134,14 @@
 
 .vehicle-card-info {
   display: flex;
-
   justify-content: space-between;
-
   margin-bottom: 1rem;
-
   color: #cbd5e1;
 }
 
 .vehicle-card-info p {
   display: flex;
-
   flex-direction: column;
-
   gap: 0.3rem;
 }
 
@@ -163,11 +149,8 @@
 
 .vehicle-color-wrapper {
   display: flex;
-
   justify-content: space-between;
-
   align-items: center;
-
   margin-bottom: 1rem;
 }
 
@@ -177,11 +160,8 @@
 
 .vehicle-color {
   width: 24px;
-
   height: 24px;
-
   border: 2px solid white;
-
   border-radius: 50%;
 }
 
@@ -189,9 +169,7 @@
 
 .vehicle-mods {
   margin-bottom: 1.2rem;
-
   color: #94a3b8;
-
   line-height: 1.5;
 }
 

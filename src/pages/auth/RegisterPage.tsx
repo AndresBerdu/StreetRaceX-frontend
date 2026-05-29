@@ -12,7 +12,9 @@ import type { RegisterFormData } from "../../types/auth.types";
 export const RegisterPage = () => {
   const navigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
+
   const [preview, setPreview] = useState<string | null>(null);
+  const [error, setError] = useState<string>("");
 
   const { execute, isLoading } = useFetch<{ ok: boolean }>({
     url: "http://localhost:8000/api/auth/sign-up-session",
@@ -23,6 +25,7 @@ export const RegisterPage = () => {
     },
     onError: (error) => {
       console.error("Registration error:", error);
+      setError(error);
     },
   });
 
@@ -175,6 +178,9 @@ export const RegisterPage = () => {
                 className="auth-input"
               />
             </div>
+
+            {/* ERROR */}
+            {error && <p className="auth-result-error">{error}</p>}
 
             {/* ACTIONS */}
             <div className="auth-actions">

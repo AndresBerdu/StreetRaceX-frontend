@@ -17,16 +17,18 @@ const toFormData = (body: unknown): FormData => {
     Object.entries(body as Record<string, unknown>).forEach(([key, value]) => {
         if (value instanceof File) {
             formData.append(key, value);
-        } else if (key === "photo") {
-        } else if (value === null) {
-            formData.append(key, "null");
-        } else if (value !== undefined) {
-            if (typeof value === "object") {
-                formData.append(key, JSON.stringify(value));
-            } else {
-                formData.append(key, String(value));
-            }
+            return;
         }
+        if (value === null || value === undefined) return;
+
+        if (typeof value === "object") {
+            formData.append(key, JSON.stringify(value));
+            return;
+        }
+
+        if (typeof value === "string" && value.trim() === "") return;
+
+        formData.append(key, String(value));
     });
 
     return formData;
@@ -35,7 +37,6 @@ const toFormData = (body: unknown): FormData => {
 let refreshPromise: Promise<boolean> | null = null;
 
 const tryRefreshToken = async (refreshUrl: string): Promise<boolean> => {
-
     if (refreshPromise) return refreshPromise;
 
     refreshPromise = fetch(refreshUrl, {
@@ -87,14 +88,16 @@ export const useFetch = <T>({
         return { headers, bodyContent };
     };
 
-    const execute = async (body: unknown) => {
+    const execute = async (body: unknown, overrideUrl?: string) => {
         setIsLoading(true);
         setError(null);
+
+        const targetUrl = overrideUrl ?? url;
 
         try {
             const { headers, bodyContent } = buildRequest(body);
 
-            let res = await fetch(url, {
+            let res = await fetch(targetUrl, {
                 method,
                 headers,
                 body: bodyContent,
@@ -102,10 +105,10 @@ export const useFetch = <T>({
             });
 
             if (res.status === 401) {
-                const refreshed = await tryRefreshToken("/api/auth/refresh");
+                const refreshed = await tryRefreshToken("http://localhost:8000/api/auth/refresh-session");
 
                 if (refreshed) {
-                    res = await fetch(url, {
+                    res = await fetch(targetUrl, {
                         method,
                         headers,
                         body: bodyContent,

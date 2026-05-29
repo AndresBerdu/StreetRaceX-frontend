@@ -340,3 +340,42 @@
     grid-template-columns: 2fr 1fr;
   }
 }
+
+.profile-avatar-wrapper {
+  position: relative;
+  width: fit-content;
+}
+
+.profile-avatar-edit {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #2563eb;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.profile-edit-input {
+  background: #1e293b;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  width: 100%;
+  margin-bottom: 0.4rem;
+}
+
+.profile-locality-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}

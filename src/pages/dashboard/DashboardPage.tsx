@@ -1,10 +1,10 @@
 // DashboardPage.tsx
 import { DashboardHeader } from "./DashboardHeader";
 import { StatsCard } from "./StatsCard";
-import { ActiveVehicleCard } from "./ActiveVehicleCard";
 import "../../styles/dashboard.css";
 import { useAuthStore } from "../../stores/useAuthStore";
 import { AvailableDrivers } from "../../components/dashboad/AvalibleDrivers";
+import { ActiveVehicleCard } from "../../components/profile/ActiveVehicleCard";
 
 export const DashboardPage = () => {
   const user = useAuthStore((state) => state.user);
@@ -24,8 +24,8 @@ export const DashboardPage = () => {
       </section>
 
       <section className="dashboard-grid dashboard-grid--single">
-        <ActiveVehicleCard />
         <AvailableDrivers />
+        <ActiveVehicleCard />
       </section>
     </div>
   );
